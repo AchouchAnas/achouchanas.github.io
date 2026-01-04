@@ -3,793 +3,484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Anas ACHOUCH</title>
+    <title>Anas ACHOUCH | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-body: #0a0f1a;
+            --bg-card: #161e2d;
+            --nav-bg: rgba(10, 15, 26, 0.9);
+            --primary: #38bdf8;
+            --primary-hover: #7dd3fc;
+            --text-main: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #2d3748;
+            --modal-overlay: rgba(0, 0, 0, 0.85);
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
 
         /* Navigation */
-        nav {
-            background-color: #2c3e50;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        nav { background-color: var(--nav-bg); backdrop-filter: blur(12px); padding: 1.2rem 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        nav a { color: var(--text-light); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        section { display: none; animation: fadeIn 0.6s ease-out; }
+        section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-size: 3rem; text-align: center; margin-bottom: 1rem; background: linear-gradient(135deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 1.6rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 15px; }
+        h2::after { content: ""; height: 1px; flex-grow: 1; background: var(--border); }
+
+        /* Grilles générales */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+        /* Styles des Cartes */
+        .project-card { background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
+        .project-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        /* Images */
+        .project-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            background-color: #1e293b;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            padding: 0 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #3498db;
-        }
-
-        /* Container général */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Sections */
-        section {
-            display: none;
-            background: white;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            min-height: 70vh;
-        }
-
-        section.active {
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
             display: block;
         }
 
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
+        .project-content { padding: 1.5rem; flex-grow: 1; }
+        .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--primary); }
+        .project-description { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1.5rem; }
 
-        h2 {
-            color: #34495e;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 0.5rem;
-        }
+        /* Boutons */
+        .btn-more { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn-more:hover { background: var(--primary); color: var(--bg-body); }
 
-        h3 {
-            color: #2c3e50;
-            font-size: 1.3rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
+        /* Listes Compétences */
+        .skills-list { list-style: none; padding-left: 0; }
+        .skills-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; color: var(--text-light); font-size: 0.95rem; }
+        .skills-list li::before { content: "▸"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
 
-        /* Page Accueil */
-        #accueil {
-            text-align: center;
-        }
-
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid #3498db;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* PLACEHOLDER POUR VOTRE PHOTO - Remplacez "votre-photo.jpg" par le chemin de votre image */
-        .profile-placeholder {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-            font-weight: bold;
-            border: 5px solid #3498db;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .intro-text {
-            max-width: 700px;
-            text-align: justify;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin: 1.5rem auto;
-        }
-
-        .banner-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        /* Items (formations, expériences, etc.) */
-        .item {
-            display: flex;
+        /* Styles spécifiques Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-        }
-
-        .item-logo {
-            flex-shrink: 0;
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
-
-        .item-content {
-            flex-grow: 1;
-        }
-
-        .item-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 0.3rem;
-        }
-
-        .item-date {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .item-location {
-            color: #95a5a6;
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .item-description {
-            text-align: justify;
-            margin-bottom: 0.8rem;
-        }
-
-        .item-skills {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .item-skills li {
-            padding-left: 1.2rem;
-            position: relative;
-            margin-bottom: 0.3rem;
-        }
-
-        .item-skills li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        .item-link {
-            display: inline-block;
-            margin-top: 0.8rem;
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .item-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Compétences - Mindmap style */
-        .competences-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        .competence-category {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            min-width: 280px;
-            border-top: 4px solid #3498db;
-        }
-
-        .competence-category h3 {
-            margin-top: 0;
-            color: #3498db;
-            text-align: center;
-        }
-
-        .competence-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .competence-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .competence-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #27ae60;
-            font-weight: bold;
-        }
-
-        /* Contact */
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            max-width: 500px;
-            margin: 2rem auto;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .contact-item img {
-            width: 40px;
-            height: 40px;
-        }
-
-        .contact-item a {
-            color: #3498db;
+            gap: 1.5rem;
+            padding: 1.5rem;
             text-decoration: none;
-            font-size: 1.1rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
         }
 
-        .contact-item a:hover {
-            text-decoration: underline;
+        .contact-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: rgba(56, 189, 248, 0.05);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #2c3e50;
+        .contact-item img { width: 48px; height: 48px; }
+        .contact-info { display: flex; flex-direction: column; }
+        .contact-label { color: var(--primary); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem; }
+        .contact-value { color: var(--text-main); font-weight: 600; font-size: 1rem; }
+
+        /* --- MODALES --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); z-index: 2000; justify-content: center; align-items: center; padding: 2rem; }
+
+        .modal-content {
+            background: var(--bg-card);
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 0;
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-header-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            display: block;
+        }
+
+        .modal-body { padding: 2.5rem; }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
             color: white;
-            margin-top: 3rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+            z-index: 10;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-            }
+        .close-modal:hover { background: var(--primary); color: var(--bg-body); border-color: var(--primary); }
 
-            nav a {
-                font-size: 0.95rem;
-            }
+        .modal-body h2 { margin-top: 0; margin-bottom: 1rem; font-size: 1.8rem; color: white; border: none; }
+        .modal-body h3 { color: var(--primary); margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+        .modal-body ul { padding-left: 1.2rem; color: var(--text-light); font-size: 0.95rem; }
 
-            .container {
-                padding: 1rem;
-            }
-
-            section {
-                padding: 1.5rem;
-            }
-
-            .item {
-                flex-direction: column;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-        }
+        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <!-- Navigation principale - Menu visible -->
-    <nav>
-        <ul>
-            <li><a href="#" onclick="showSection('accueil')">Accueil</a></li>
-            <li><a href="#" onclick="showSection('formations')">Formations</a></li>
-            <li><a href="#" onclick="showSection('competences')">Compétences</a></li>
-            <li><a href="#" onclick="showSection('realisations')">Réalisations</a></li>
-            <li><a href="#" onclick="showSection('experiences')">Expériences</a></li>
-            <li><a href="#" onclick="showSection('contact')">Contact</a></li>
-        </ul>
-    </nav>
 
-    <div class="container">
-        <!-- PAGE ACCUEIL -->
-        <section id="accueil" class="active">
-            <!-- Image bannière en relation avec la formation informatique -->
-            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=300&fit=crop" alt="Développement informatique" class="banner-image">
-            
-            <!-- Nom visible et titre de la page -->
-            <h1>CV de Anas ACHOUCH</h1>
-            
-            <div class="profile-section">
-                <!-- PLACEHOLDER POUR VOTRE PHOTO -->
-                <!-- Option 1 : Si vous avez une photo, décommentez la ligne ci-dessous et remplacez "votre-photo.jpg" -->
-                <!-- <img src="votre-photo.jpg" alt="Photo de Anas ACHOUCH" class="profile-image"> -->
-                
-                <!-- Option 2 : Placeholder avec initiales (supprimez cette div quand vous ajoutez votre photo) -->
-                <div class="profile-placeholder">AA</div>
-            </div>
+<nav>
+    <ul>
+        <li><a href="#" onclick="showSection('accueil')">Accueil</a></li>
+        <li><a href="#" onclick="showSection('formations')">Parcours</a></li>
+        <li><a href="#" onclick="showSection('competences')">Compétences</a></li>
+        <li><a href="#" onclick="showSection('realisations')">Projets</a></li>
+        <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+    </ul>
+</nav>
 
-            <!-- Texte de présentation à la 1ère personne, 5 à 10 lignes -->
-            <div class="intro-text">
-                <p>
+<div class="container">
+
+    <section id="accueil" class="active">
+        <div style="text-align: center; padding: 4rem 0;">
+
+            <img src="img/photo_profil.jpg" alt="Anas Achouch" class="profile-img">
+
+            <h1>Anas Achouch</h1>
+            <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 2rem;">Étudiant en BUT Informatique — Université de Lille</p>
+
+            <div style="max-width: 800px; margin: 0 auto; text-align: justify; color: var(--text-light); font-size: 1.05rem;">
+                <p style="margin-bottom: 1rem;">
                     Je suis Anas ACHOUCH, étudiant actuellement en 2 ème année de BUT Informatique à l'IUT de Lille.
-                    Passionné par le développement logiciel, mon objectif professionnel est de devenir développeur d'applications. 
+                    Passionné par le développement logiciel, mon objectif professionnel est de devenir développeur d'applications.
                     Je suis particulièrement attiré par le développement web et la création d'applications robustes et performantes.
                 </p>
                 <p>
-                    Au cours de ma formation, j'ai eu l'opportunité de travailler sur plusieurs projets concrets en équipe, 
-                    ce qui m'a permis de développer mes compétences techniques en Java, en gestion de bases de données, 
-                    ainsi que mes capacités de travail collaboratif. Je recherche actuellement un stage dans le développement 
+                    Au cours de ma formation, j'ai eu l'opportunité de travailler sur plusieurs projets concrets en équipe,
+                    ce qui m'a permis de développer mes compétences techniques en Java, en gestion de bases de données,
+                    ainsi que mes capacités de travail collaboratif. Je recherche actuellement un stage dans le développement
                     d'applications ou le développement web pour mettre en pratique mes compétences et continuer à progresser
                     dans ce domaine qui me passionne.
                 </p>
             </div>
-        </section>
 
-        <!-- PAGE FORMATIONS -->
-        <section id="formations">
-            <h2>Formations</h2>
+            <div style="margin-top: 3rem;">
+                <a href="docs/CV_2025.pdf" target="_blank" class="btn-more" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                    📄 Télécharger mon CV (PDF)
+                </a>
+            </div>
 
-            <!-- Formation 1 - BUT Informatique -->
-            <div class="item">
-                <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/f/f6/Logo_Universit%C3%A9_de_Lille.svg/200px-Logo_Universit%C3%A9_de_Lille.svg.png" alt="Logo IUT Lille" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">BUT INFORMATIQUE</div>
-                    <div class="item-date">2024 - Aujourd'hui</div>
-                    <div class="item-location">IUT de Lille - Villeneuve d'Ascq</div>
-                    <p class="item-description">
-                        Formation professionnalisante en trois ans axée sur le développement logiciel, 
-                        l'administration système, les bases de données et la gestion de projets informatiques.
-                    </p>
+        </div>
+    </section>
+
+    <section id="formations">
+        <h2>Formations</h2>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 2rem;">
+                <div class="item-date" style="color: var(--primary); font-weight: 600;">2024 — Aujourd'hui</div>
+                <div class="project-title">BUT INFORMATIQUE</div>
+                <p style="color: var(--text-light);">IUT de Lille - Villeneuve d'Ascq</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-light);">Formation professionnalisante axée sur le développement logiciel, l'administration système et les bases de données.</p>
+            </div>
+            <div class="project-card" style="padding: 2rem;">
+                <div class="item-date" style="color: var(--primary); font-weight: 600;">2021 — 2024</div>
+                <div class="project-title">BACCALAURÉAT GÉNÉRAL</div>
+                <p style="color: var(--text-light);">Lycée Gustave Eiffel - Armentières</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-light);">Spécialités : Mathématiques et NSI. Mention Bien.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="competences">
+        <h2>Compétences</h2>
+        <div class="projects-grid">
+
+            <div class="project-card" style="padding: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">Savoir-faire Informatiques</h3>
+                <ul class="skills-list">
+                    <li>Analyse de besoins et problèmes</li>
+                    <li>Méthodes Agiles</li>
+                    <li>Programmation orientée objet (Java)</li>
+                    <li>Développement d'interfaces (JavaFX)</li>
+                    <li>Gestion de bases de données (SQL)</li>
+                    <li>Développement web (HTML, CSS)</li>
+                    <li>Algorithmes et structures de données</li>
+                    <li>Administration système Linux/Debian</li>
+                </ul>
+            </div>
+
+            <div class="project-card" style="padding: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">Outils & Technologies</h3>
+                <ul class="skills-list">
+                    <li>Java, C, Python</li>
+                    <li>jEE, JDBC</li>
+                    <li>IntelliJ, VS Code, Git, GitLab</li>
+                    <li>VirtualBox</li>
+                    <li>SQL (MySQL, PostgreSQL)</li>
+                    <li>Canva</li>
+                </ul>
+            </div>
+
+            <div class="project-card" style="padding: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">Savoir-être</h3>
+                <ul class="skills-list">
+                    <li>Esprit d'équipe & Autonomie</li>
+                    <li>Rigueur et méthodologie</li>
+                    <li>Communication claire</li>
+                    <li>Curiosité et apprentissage continu</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="realisations">
+        <h2>Projets de Développement</h2>
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <img src="img/labyrinthe_javafx.png" alt="Jeu Labyrinthe" class="project-img">
+                <div class="project-content">
+                    <div class="project-title">Jeu de Labyrinthe interactif</div>
+                    <p class="project-description">Jeu développé en Java/JavaFX avec génération procédurale de niveaux.</p>
+                    <button class="btn-more" onclick="openModal('modal-labyrinthe')">Plus d'infos</button>
                 </div>
             </div>
 
-            <!-- Formation 2 - Baccalauréat -->
-            <div class="item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Academie_de_Lille.svg/200px-Academie_de_Lille.svg.png" alt="Logo Lycée" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">BACCALAURÉAT GÉNÉRAL</div>
-                    <div class="item-date">2021 - 2024</div>
-                    <div class="item-location">Lycée Gustave Eiffel - Armentières</div>
-                    <p class="item-description">
-                        Spécialités : Mathématiques et Numérique et Sciences Informatiques (NSI).
-                        Obtenu avec mention Bien.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE COMPÉTENCES -->
-        <section id="competences">
-            <h2>Compétences</h2>
-
-            <div class="competences-container">
-                <!-- Savoir-faire informatiques -->
-                <div class="competence-category">
-                    <h3>Savoir-faire Informatiques</h3>
-                    <ul class="competence-list">
-                        <li>Programmation orientée objet (Java)</li>
-                        <li>Développement d'interfaces graphiques (JavaFX)</li>
-                        <li>Gestion de bases de données (SQL)</li>
-                        <li>Développement web (HTML, CSS)</li>
-                        <li>Algorithmes et structures de données</li>
-                        <li>Gestion de versions (Git, GitLab)</li>
-                        <li>Administration système Linux/Debian</li>
-                        <li>Tests et débogage</li>
-                    </ul>
-                </div>
-
-                <!-- Outils et technologies -->
-                <div class="competence-category">
-                    <h3>Outils & Technologies</h3>
-                    <ul class="competence-list">
-                        <li>Java, iJava</li>
-                        <li>VS Code</li>
-                        <li>Git, GitLab</li>
-                        <li>VirtualBox</li>
-                        <li>SQL (MySQL, PostgreSQL)</li>
-                        <li>JavaFX</li>
-                        <li>Canva, FreeLogoDesign</li>
-                        <li>Gestion de fichiers CSV/TXT</li>
-                    </ul>
-                </div>
-
-                <!-- Savoir-être -->
-                <div class="competence-category">
-                    <h3>Savoir-être</h3>
-                    <ul class="competence-list">
-                        <li>Esprit d'équipe</li>
-                        <li>Autonomie</li>
-                        <li>Persévérance</li>
-                        <li>Rigueur et méthodologie</li>
-                        <li>Communication claire</li>
-                        <li>Sens de l'organisation</li>
-                        <li>Curiosité et apprentissage continu</li>
-                        <li>Capacité d'adaptation</li>
-                    </ul>
-                </div>
-
-                <!-- Compétences transversales -->
-                <div class="competence-category">
-                    <h3>Compétences Transversales</h3>
-                    <ul class="competence-list">
-                        <li>Gestion de projet</li>
-                        <li>Analyse de besoins</li>
-                        <li>Rédaction technique</li>
-                        <li>Présentation orale</li>
-                        <li>Analyse statistique</li>
-                        <li>Travail collaboratif</li>
-                        <li>Résolution de problèmes</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE RÉALISATIONS -->
-        <section id="realisations">
-            <h2>Réalisations Informatiques</h2>
-
-            <!-- Projet 1 - HistoryAdventure (SAE 1.02) -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/2991/2991110.png" alt="Icône jeu" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">HISTORYADVENTURE - JEU LUDO-PÉDAGOGIQUE</div>
-                    <div class="item-date">Novembre - Décembre 2024</div>
-                    <div class="item-location">SAE 1.02 - BUT Informatique 1ère année</div>
-                    <p class="item-description">
-                        Développement en binôme d'un jeu éducatif combinant combat RPG et quiz d'histoire. 
-                        Le joueur incarne un personnage affrontant des ennemis de différentes époques (Antiquité, Moyen Âge, XXe siècle) 
-                        en répondant à des questions historiques. Le jeu propose plusieurs classes de personnages avec des aptitudes uniques 
-                        et un système de progression.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Programmation orientée objet en Java</li>
-                        <li>Gestion de fichiers externes (CSV, TXT)</li>
-                        <li>Développement d'interface textuelle interactive</li>
-                        <li>Conception d'algorithmes de jeu</li>
-                        <li>Tests unitaires et débogage</li>
-                        <li>Travail collaboratif avec Git</li>
-                    </ul>
-                    <!-- LIEN GITLAB À REMPLACER -->
-                    <a href="https://gitlab.univ-lille.fr/history-adventure/historyadventure.git" class="item-link" target="_blank">
-                        🔗 Voir le dépôt GitLab
-                    </a>
+            <div class="project-card">
+                <img src="img/kasse_briquerie.png" alt="Jeu Casse Brique" class="project-img">
+                <div class="project-content">
+                    <div class="project-title">kasseBriquerie - Jeu Terminal</div>
+                    <p class="project-description">Jeu de casse-brique en terminal réalisé en 4 jours via la méthode Agile.</p>
+                    <button class="btn-more" onclick="openModal('modal-cassebrique')">Plus d'infos</button>
                 </div>
             </div>
 
-            <!-- Projet 2 - Application d'appariement (SAE 2.01/2.02) -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Icône appariement" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">APPLICATION D'APPARIEMENT DE CORRESPONDANTS</div>
-                    <div class="item-date">Janvier - Mars 2025</div>
-                    <div class="item-location">SAE 2.01/2.02 - BUT Informatique 2ème année</div>
-                    <p class="item-description">
-                        Développement en trinôme d'une application de gestion de séjours linguistiques permettant d'apparier 
-                        automatiquement des adolescents hôtes et visiteurs. L'application prend en compte des contraintes 
-                        (allergies, régimes alimentaires, historique) et des préférences (hobbies, genre, âge) pour créer 
-                        des appariements optimaux via des algorithmes sur graphes.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Modélisation UML d'un système complexe</li>
-                        <li>Implémentation d'algorithmes d'appariement (graphes, coût minimal)</li>
-                        <li>Développement d'interface graphique avec JavaFX</li>
-                        <li>Manipulation et validation de fichiers CSV</li>
-                        <li>Gestion de contraintes et préférences multiples</li>
-                        <li>Travail en équipe avec méthodologie Agile</li>
-                    </ul>
-                    <!-- LIEN GITLAB À REMPLACER -->
-                    <a href="https://gitlab.univ-lille.fr/sae2.01-2.02/2025/A7" class="item-link" target="_blank">
-                        🔗 Voir le dépôt GitLab
-                    </a>
+            <div class="project-card">
+                <img src="img/appariement_java.png" alt="Application JavaFX" class="project-img">
+                <div class="project-content">
+                    <div class="project-title">Application et exploration algorithmique</div>
+                    <p class="project-description">Application d'appariement automatique pour séjours linguistiques avec JavaFX.</p>
+                    <button class="btn-more" onclick="openModal('modal-app')">Plus d'infos</button>
                 </div>
             </div>
 
-            <!-- Projet 3 - Jeu de Labyrinthe -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3050/3050155.png" alt="Icône labyrinthe" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">JEU DE LABYRINTHE AVEC INTERFACE GRAPHIQUE</div>
-                    <div class="item-date">2024-2025</div>
-                    <div class="item-location">Projet personnel - BUT Informatique</div>
-                    <p class="item-description">
-                        Création d'un jeu de labyrinthe avec génération procédurale utilisant des algorithmes optimisés. 
-                        Le jeu dispose d'une interface graphique intuitive permettant de naviguer dans des labyrinthes 
-                        générés aléatoirement avec différents niveaux de difficulté.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Algorithmes de génération de labyrinthes (DFS, Prim)</li>
-                        <li>Optimisation des performances</li>
-                        <li>Développement d'interface graphique Java</li>
-                        <li>Gestion d'événements utilisateur</li>
-                        <li>Architecture MVC (Modèle-Vue-Contrôleur)</li>
-                    </ul>
-                    <!-- LIEN GITHUB À AJOUTER -->
-                    <a href="VOTRE_LIEN_GITHUB_ICI" class="item-link" target="_blank">
-                        🔗 Voir le projet sur GitHub
-                    </a>
+            <div class="project-card">
+                <img src="img/covoiturage_nvidia.png" alt="Site Web Covoiturage" class="project-img">
+                <div class="project-content">
+                    <div class="project-title">Découverte de l'environnement numérique</div>
+                    <p class="project-description">Site web de covoiturage pour Nvidia réalisé en HTML/CSS avec maquettage.</p>
+                    <button class="btn-more" onclick="openModal('modal-web')">Plus d'infos</button>
                 </div>
             </div>
 
-            <!-- Projet 4 - Base de données JO (SAE 2.04) -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" alt="Icône base de données" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">EXPLOITATION D'UNE BASE DE DONNÉES - JEUX OLYMPIQUES</div>
-                    <div class="item-date">Février - Mars 2025</div>
-                    <div class="item-location">SAE 2.04 - BUT Informatique 2ème année</div>
-                    <p class="item-description">
-                        Manipulation et exploitation d'une base de données complexe sur les Jeux Olympiques. 
-                        Travail en binôme incluant l'importation, le nettoyage et la normalisation de données, 
-                        la réalisation de requêtes SQL avancées et l'analyse statistique avec visualisations graphiques.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Création et gestion de bases de données relationnelles</li>
-                        <li>Requêtes SQL complexes (jointures, agrégats, vues)</li>
-                        <li>Nettoyage et normalisation de données</li>
-                        <li>Analyse statistique (moyenne, écart-type, corrélation)</li>
-                        <li>Création de visualisations graphiques pertinentes</li>
-                        <li>Rédaction de rapports techniques</li>
-                    </ul>
-                    <!-- LIEN VERS DOCUMENTATION À AJOUTER SI DISPONIBLE -->
-                    <a href="VOTRE_LIEN_DOCUMENTATION_ICI" class="item-link" target="_blank">
-                        🔗 Voir la documentation du projet
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- PAGE EXPÉRIENCES -->
-        <section id="experiences">
-            <h2>Expériences</h2>
-
-            <!-- Projet SAE 1.03 - Administration système -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/226/226772.png" alt="Logo Linux" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">ADMINISTRATION SYSTÈME LINUX</div>
-                    <div class="item-date">Octobre - Novembre 2024</div>
-                    <div class="item-location">SAE 1.03 - BUT Informatique 1ère année</div>
-                    <p class="item-description">
-                        Installation et configuration complète d'un poste de développement sous Debian. 
-                        Gestion d'une machine virtuelle incluant la création d'utilisateurs, la configuration 
-                        des permissions, l'installation de logiciels et la gestion de partitions via le terminal.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Administration système Linux/Debian</li>
-                        <li>Gestion des utilisateurs et permissions</li>
-                        <li>Configuration de partitions et systèmes de fichiers</li>
-                        <li>Installation de logiciels via gestionnaires de paquets</li>
-                        <li>Création de scripts bash pour l'automatisation</li>
-                        <li>Rédaction de documentation technique en anglais</li>
-                    </ul>
+            <div class="project-card">
+                <img src="img/history_adventure.png" alt="Jeu History Adventure" class="project-img">
+                <div class="project-content">
+                    <div class="project-title">Développement d'un logiciel ludo-pédagogique</div>
+                    <p class="project-description">Jeu "HistoryAdventure" mêlant combat RPG et questions historiques.</p>
+                    <button class="btn-more" onclick="openModal('modal-history')">Plus d'infos</button>
                 </div>
             </div>
 
-            <!-- Projet SAE 2.05 - Gestion de projet -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/3281/3281307.png" alt="Icône gestion projet" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">CRÉATION D'ENTREPRISE - APPLICATION MOBILE</div>
-                    <div class="item-date">Janvier - Février 2025</div>
-                    <div class="item-location">SAE 2.05 - BUT Informatique 2ème année</div>
-                    <p class="item-description">
-                        Simulation de création d'entreprise en équipe de quatre autour d'une application mobile innovante. 
-                        Gestion complète du projet incluant l'analyse de marché, l'étude de la concurrence, 
-                        la définition d'une stratégie commerciale et la création d'une plaquette promotionnelle.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Gestion de projet (planification, coordination)</li>
-                        <li>Création de diagrammes de Gantt</li>
-                        <li>Analyse de marché et étude concurrentielle</li>
-                        <li>Conception d'une stratégie de communication</li>
-                        <li>Utilisation d'outils collaboratifs (Canva, Trello)</li>
-                        <li>Présentation orale professionnelle</li>
-                    </ul>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+
+        <div class="project-card" style="padding: 2rem; margin-bottom: 2rem; border-left: 5px solid var(--primary);">
+            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">💼 À la recherche d'un stage</h3>
+            <p style="color: var(--text-light); font-size: 1.05rem;">
+                Je recherche actuellement un stage en <strong>développement d'applications</strong> ou <strong>développement web back-end</strong>.<br>
+                N'hésitez pas à me contacter pour discuter d'opportunités !
+            </p>
+        </div>
+
+        <div class="contact-grid">
+
+            <a href="mailto:anas.achouch.etu@univ-lille.fr" class="contact-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
+                <div class="contact-info">
+                    <span class="contact-label">Email universitaire</span>
+                    <span class="contact-value">anas.achouch.etu@univ-lille.fr</span>
+                </div>
+            </a>
+
+            <a href="#" target="_blank" class="contact-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+                <div class="contact-info">
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">Anas ACHOUCH</span>
+                </div>
+            </a>
+
+            <a href="#" target="_blank" class="contact-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                <div class="contact-info">
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-value">@AchouchAnas</span>
+                </div>
+            </a>
+
+            <div class="contact-item">
+                <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Téléphone">
+                <div class="contact-info">
+                    <span class="contact-label">Téléphone</span>
+                    <span class="contact-value" style="color: var(--text-light); font-weight: normal;">Sur demande</span>
                 </div>
             </div>
 
-            <!-- Projet SAE 1.05/1.06 - Site web covoiturage -->
-            <div class="item">
-                <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png" alt="Icône web" class="item-logo">
-                <div class="item-content">
-                    <div class="item-title">SITE WEB COVOITURAGE & ÉCOMOBILITÉ</div>
-                    <div class="item-date">Novembre - Décembre 2024</div>
-                    <div class="item-location">SAE 1.05/1.06 - BUT Informatique 1ère année</div>
-                    <p class="item-description">
-                        Création en trinôme d'un site web dédié au covoiturage et à l'écomobilité pour les employés de Nvidia. 
-                        Réalisation d'une maquette graphique, développement en HTML/CSS, analyse SWOT de l'entreprise 
-                        et création d'une newsletter diffusée via Brevo.
-                    </p>
-                    <ul class="item-skills">
-                        <li>Conception et développement web (HTML, CSS)</li>
-                        <li>Création de maquettes graphiques</li>
-                        <li>Analyse d'entreprise (SWOT)</li>
-                        <li>Rédaction de newsletter professionnelle</li>
-                        <li>Utilisation d'outils marketing (Brevo)</li>
-                        <li>Travail en équipe sur projet web</li>
-                    </ul>
-                    <!-- LIEN GITLAB À REMPLACER -->
-                    <a href="https://gitlab.univ-lille.fr/romain.harlaut.etu/sae10506" class="item-link" target="_blank">
-                        🔗 Voir le dépôt GitLab
-                    </a>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
+</div>
 
-        <!-- PAGE CONTACT -->
-        <section id="contact">
-            <h2>Contact</h2>
-
-            <div class="contact-info">
-                <!-- Email universitaire -->
-                <div class="contact-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
-                    <div>
-                        <strong>Email universitaire :</strong><br>
-                        <!-- REMPLACEZ PAR VOTRE EMAIL UNIVERSITAIRE -->
-                        <a href="mailto:anas.achouch.etu@univ-lille.fr">anas.achouch.etu@univ-lille.fr</a>
-                    </div>
-                </div>
-
-                <!-- LinkedIn -->
-                <div class="contact-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
-                    <div>
-                        <strong>LinkedIn :</strong><br>
-                        <!-- REMPLACEZ PAR VOTRE PROFIL LINKEDIN -->
-                        <a href="VOTRE_PROFIL_LINKEDIN" target="_blank">Anas ACHOUCH</a>
-                    </div>
-                </div>
-
-                <!-- GitHub -->
-                <div class="contact-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
-                    <div>
-                        <strong>GitHub :</strong><br>
-                        <!-- REMPLACEZ PAR VOTRE PROFIL GITHUB -->
-                        <a href="VOTRE_PROFIL_GITHUB" target="_blank">@votre-username</a>
-                    </div>
-                </div>
-
-                <!-- GitLab -->
-                <div class="contact-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968853.png" alt="GitLab">
-                    <div>
-                        <strong>GitLab Université :</strong><br>
-                        <!-- REMPLACEZ PAR VOTRE PROFIL GITLAB -->
-                        <a href="VOTRE_PROFIL_GITLAB" target="_blank">@anas.achouch</a>
-                    </div>
-                </div>
-
-                <!-- Téléphone (facultatif) -->
-                <div class="contact-item">
-                    <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Téléphone">
-                    <div>
-                        <strong>Téléphone :</strong><br>
-                        <!-- FACULTATIF - Ajoutez votre numéro si vous le souhaitez -->
-                        <span style="color: #7f8c8d;">Sur demande</span>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
-                <h3 style="color: #2c3e50; margin-bottom: 1rem;">💼 À la recherche d'un stage</h3>
-                <p style="font-size: 1.1rem; color: #34495e;">
-                    Je recherche actuellement un stage en développement d'applications ou développement web back-end.<br>
-                    N'hésitez pas à me contacter pour discuter d'opportunités !
-                </p>
-            </div>
-        </section>
+<div id="modal-labyrinthe" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img src="img/labyrinthe_javafx.png" alt="Jeu Labyrinthe" class="modal-header-img">
+        <div class="modal-body">
+            <h2>Labyrinthe - L'Échappée</h2>
+            <p>Jeu de labyrinthe développé en Java avec une interface graphique moderne en JavaFX. Le joueur contrôle une souris qui doit trouver la sortie.</p>
+            <p>Le projet met l'accent sur l'optimisation des algorithmes de génération pour créer des expériences de jeu variées.</p>
+            <h3>Fonctionnalités Clés</h3>
+            <ul>
+                <li>Génération optimisée de labyrinthes (Algorithmes optimisés).</li>
+                <li>2 Types de labyrinthes : Parfait (une solution unique) et Aléatoire.</li>
+                <li>4 Modes de jeu : Progression (6 étapes), Mode Libre, Contre la montre, et Labyrinthe du jour.</li>
+                <li>Interface utilisateur réactive en JavaFX.</li>
+            </ul>
+        </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Anas ACHOUCH - BUT Informatique - IUT de Lille</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem;">CV numérique réalisé dans le cadre de la ressource R3.13 - Communication</p>
-    </footer>
+<div id="modal-cassebrique" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img src="img/kasse_briquerie.png" alt="Jeu Casse Brique" class="modal-header-img">
+        <div class="modal-body">
+            <h2>kasseBriquerie</h2>
+            <p>Jeu de casse brique réalisé dans le cadre universitaire en utilisant le langage Java et la méthode Agile Scrum allégée.</p>
+            <p>Le jeu utilise un système de rafraîchissement en temps réel permettant d'y jouer directement dans le terminal.</p>
+            <h3>Détails Techniques</h3>
+            <ul>
+                <li>Développement rapide (4 jours).</li>
+                <li>Gestion d'affichage temps réel en console.</li>
+                <li>Travail collaboratif (Méthode Agile).</li>
+                <li>Langage : Java.</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-    <!-- Script JavaScript pour la navigation -->
-    <script>
-        // Fonction pour afficher/masquer les sections
-        function showSection(sectionId) {
-            // Masquer toutes les sections
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
+<div id="modal-app" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img src="img/appariement_java.png" alt="Appariement" class="modal-header-img">
+        <div class="modal-body">
+            <h2>Application d'Appariement</h2>
+            <p>Outil logiciel pour apparier automatiquement des adolescents pour des séjours linguistiques selon des critères (allergies, hobbies).</p>
+            <h3>Compétences & Outils</h3>
+            <ul>
+                <li>Programmation Orientée Objet (Java).</li>
+                <li>Algorithmes sur graphes (coût minimal).</li>
+                <li>Interface graphique JavaFX.</li>
+                <li>Modélisation UML.</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-            // Afficher la section demandée
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                
-                // Scroll en haut de la page
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        }
+<div id="modal-web" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img src="img/covoiturage_nvidia.png" alt="Site Web" class="modal-header-img">
+        <div class="modal-body">
+            <h2>Site Covoiturage Nvidia</h2>
+            <p>Création d'un site web dédié au covoiturage pour les employés de Nvidia, incluant maquette graphique et newsletter.</p>
+            <h3>Compétences & Outils</h3>
+            <ul>
+                <li>Développement web (HTML, CSS).</li>
+                <li>Analyse d'entreprise (SWOT).</li>
+                <li>Outil marketing (Brevo).</li>
+                <li>Ergonomie et design.</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-        // Au chargement de la page, afficher la section Accueil
-        document.addEventListener('DOMContentLoaded', function() {
-            showSection('accueil');
-        });
+<div id="modal-history" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img src="img/history_adventure.png" alt="History Adventure" class="modal-header-img">
+        <div class="modal-body">
+            <h2>HistoryAdventure</h2>
+            <p>Jeu développé en binôme. Le joueur incarne une classe (Chevalier, Paladin, Guerrier) et affronte des ennemis via des questions d'histoire.</p>
+            <h3>Compétences & Outils</h3>
+            <ul>
+                <li>Programmation et gestion de fichiers externes (CSV/TXT).</li>
+                <li>Utilisation de VS Code et Gitlab.</li>
+                <li>Tests unitaires et débogage.</li>
+                <li>Langage utilisé : ijava.</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-        // Gestion du bouton retour du navigateur
-        window.addEventListener('popstate', function(e) {
-            if (e.state && e.state.section) {
-                showSection(e.state.section);
-            }
-        });
+<script>
+    function showSection(sectionId) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        // Mise à jour de l'URL sans rechargement
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const sectionId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-                history.pushState({section: sectionId}, '', '#' + sectionId);
-            });
-        });
-    </script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onclick = function(event) {
+        if (event.target.className === 'modal') closeModal();
+    }
+</script>
 </body>
 </html>
